@@ -6,21 +6,20 @@ namespace CompilerRunner.Worker {
         private string lang;
         private string compiler;
         private readonly string[] c_compiler = { "Gcc", "Clang", "MSVC" };
-        private readonly string[] cpp_compiler = { "G++", "Clang++", "MSVC" };
+        private readonly string[] cpp_compiler = { "G++", "Clang++", "MSVC++" };
         private readonly string[] language_options = { "C", "Cpp" };
         private bool initiated = false;
         private string launchLocation { get; set; } = "nill";
         public Tui() {
+            launchLocation = Directory.GetCurrentDirectory();
             Initiate();
             initiated = true;
-            lang = "";
-            compiler = "";
         }
 
         public void Greetings() {
-            AnsiConsole.MarkupLine("[yellow on #070f29] Welcome To Compiler Runner[/]");
-            AnsiConsole.MarkupLine("[yellow on #070f29] Dir {0}[/]",launchLocation);
-            AnsiConsole.MarkupLine("[yellow on #070f29] Please Select Your Language[/]");
+            AnsiConsole.MarkupLine("[yellow on #070f29]Welcome To Compiler Runner[/]");
+            AnsiConsole.MarkupLine("[yellow on #070f29]Dir {0}[/]",launchLocation);
+            AnsiConsole.MarkupLine("[yellow on #070f29]Please Select Your Language[/]");
         }
 
         public void SetLang() {
@@ -55,7 +54,9 @@ namespace CompilerRunner.Worker {
                 Greetings();
             }
             SetLang();
-            SetCompiler();
+            if(lang == language_options[0] || lang == language_options[1]){ 
+                SetCompiler();
+            }
             ClearScreen();
         }
 
